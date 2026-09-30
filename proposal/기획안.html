@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>미세성형외과 신규 프로그램 기획안 · 디파인플랜</title>
+<style>
+@page { size: A4; margin: 0; }
+:root{
+  --navy:#16284a; --navy2:#2c4270; --ink:#1d2330; --sub:#5b6477; --line:#c9cfdb; --hair:#e3e7ee;
+  --tint:#f3f5f9; --red:#b3322b;
+}
+*{ box-sizing:border-box; margin:0; padding:0; }
+html,body{ background:#fff; }
+body{ font-family:'NanumBarunGothic','Nanum Gothic',sans-serif; color:var(--ink); font-size:9.6pt; line-height:1.6; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+.serif{ font-family:'NanumMyeongjo',serif; }
+.page{ width:210mm; height:297mm; padding:20mm 18mm 18mm; position:relative; overflow:hidden; page-break-after:always; break-after:page; }
+.page:last-child{ page-break-after:auto; break-after:auto; }
+
+/* 머리글·꼬리글 */
+.hd{ position:absolute; top:10mm; left:18mm; right:18mm; display:flex; justify-content:space-between; font-size:7.8pt; color:var(--sub); letter-spacing:.02em; border-bottom:.3mm solid var(--hair); padding-bottom:2mm; }
+.hd b{ color:var(--navy); font-weight:700; }
+.ft{ position:absolute; bottom:9mm; left:18mm; right:18mm; display:flex; justify-content:space-between; font-size:7.6pt; color:var(--sub); }
+.ft .pg{ color:var(--navy); font-weight:700; }
+
+/* 섹션 */
+.sec{ margin-top:7mm; }
+.sec:first-of-type{ margin-top:4mm; }
+.sec-h{ display:flex; align-items:baseline; gap:3.2mm; border-bottom:.6mm solid var(--navy); padding-bottom:2mm; margin-bottom:3mm; }
+.sec-h .no{ font-family:'NanumMyeongjo',serif; font-weight:800; font-size:17pt; color:var(--navy); line-height:1; }
+.sec-h h2{ font-family:'NanumMyeongjo',serif; font-weight:700; font-size:14pt; color:var(--ink); }
+.lead{ font-size:9.6pt; color:var(--ink); margin-bottom:3mm; }
+
+/* 확인 표 */
+table{ width:100%; border-collapse:collapse; table-layout:fixed; }
+th{ background:var(--navy); color:#fff; font-weight:700; font-size:8.6pt; text-align:left; padding:2mm 3mm; }
+td{ border-bottom:.3mm solid var(--line); padding:2.4mm 3mm; vertical-align:top; font-size:9pt; }
+td.k{ font-weight:700; color:var(--navy); }
+td.q{ color:var(--ink); }
+td.a{ border-left:.3mm solid var(--line);
+      background-image:linear-gradient(to bottom, transparent 6.7mm, var(--hair) 6.7mm);
+      background-size:100% 7mm; background-position:0 1.5mm; }
+tr.tall td{ height:22mm; }
+tr.mid td{ height:18mm; }
+tr.xl td{ height:28mm; }
+.note{ margin-top:2.6mm; padding:2.6mm 3.4mm; background:var(--tint); border-left:.9mm solid var(--navy2); font-size:8.8pt; color:var(--ink); }
+.note b{ color:var(--navy); }
+.note.red{ border-left-color:var(--red); }
+.note.red b{ color:var(--red); }
+
+/* 표지 */
+.cover{ padding:0; }
+.cover .band{ background:var(--navy); color:#fff; height:112mm; padding:26mm 20mm 0; position:relative; }
+.cover .eyebrow{ font-size:8.4pt; letter-spacing:.32em; color:#b8c3da; }
+.cover h1{ font-family:'NanumMyeongjo',serif; font-weight:800; font-size:27pt; line-height:1.38; margin-top:7mm; }
+.cover .subt{ margin-top:6mm; font-size:10.4pt; color:#dfe5f1; }
+.cover .rule{ position:absolute; left:20mm; bottom:14mm; width:14mm; height:.8mm; background:#fff; }
+.cover .body{ padding:13mm 20mm 0; }
+.meta{ display:grid; grid-template-columns:repeat(4,1fr); border-top:.6mm solid var(--navy); border-bottom:.3mm solid var(--line); }
+.meta div{ padding:3.4mm 0 3.4mm; }
+.meta div + div{ padding-left:4mm; border-left:.3mm solid var(--hair); }
+.meta .l{ font-size:7.6pt; color:var(--sub); letter-spacing:.06em; }
+.meta .v{ font-size:10pt; font-weight:700; color:var(--ink); margin-top:.6mm; }
+.intro{ margin-top:9mm; font-family:'NanumMyeongjo',serif; font-size:10.6pt; line-height:1.9; color:var(--ink); }
+.toc{ margin-top:9mm; display:grid; grid-template-columns:1fr 1fr; column-gap:10mm; }
+.toc div{ display:flex; gap:3mm; padding:2.1mm 0; border-bottom:.3mm solid var(--hair); font-size:9.4pt; }
+.toc .n{ font-family:'NanumMyeongjo',serif; font-weight:800; color:var(--navy); width:7mm; }
+.toc .p{ margin-left:auto; color:var(--sub); font-size:8.4pt; }
+.cover .sign{ position:absolute; left:20mm; right:20mm; bottom:16mm; display:flex; justify-content:space-between; align-items:flex-end; }
+.cover .sign .who{ font-family:'NanumMyeongjo',serif; font-size:11pt; font-weight:700; color:var(--navy); }
+.cover .sign .date{ font-size:8.4pt; color:var(--sub); }
+
+/* 체크리스트·연락처 */
+.checks{ display:grid; grid-template-columns:1fr 1fr; column-gap:8mm; }
+.checks div{ display:flex; gap:3mm; align-items:flex-start; padding:2.6mm 0; border-bottom:.3mm solid var(--hair); font-size:9.4pt; }
+.box{ flex:none; width:4mm; height:4mm; border:.35mm solid var(--navy); border-radius:.6mm; margin-top:.7mm; }
+.memo{ margin-top:3mm; border:.3mm solid var(--line); border-radius:1.6mm; height:100mm; padding:3mm 4mm;
+       background-image:linear-gradient(to bottom, transparent 7.6mm, var(--hair) 7.6mm);
+       background-size:100% 8mm; background-origin:content-box; background-clip:content-box; }
+.memo-l{ font-size:8pt; color:var(--sub); }
+.card{ margin-top:8mm; border:.35mm solid var(--navy); border-radius:2mm; padding:7mm 8mm; display:flex; justify-content:space-between; align-items:flex-end; }
+.card .t{ font-family:'NanumMyeongjo',serif; font-weight:700; font-size:12.6pt; line-height:1.55; color:var(--ink); }
+.card .c{ text-align:right; font-size:8.8pt; color:var(--sub); line-height:1.75; }
+.card .c b{ display:block; font-family:'NanumMyeongjo',serif; font-size:12pt; color:var(--navy); }
+</style>
+</head>
+<body>
+
+<!-- 1면 · 표지 -->
+<section class="page cover">
+  <div class="band">
+    <div class="eyebrow">CLINICAL PROGRAM BRIEF</div>
+    <h1>미세성형외과<br>신규 시술·수술 프로그램 기획안</h1>
+    <div class="subt">1차 미팅 확인지 · 원장님, 실장님과 함께 답을 채워 가는 문서입니다</div>
+    <div class="rule"></div>
+  </div>
+  <div class="body">
+    <div class="meta">
+      <div><div class="l">병원</div><div class="v">미세성형외과</div></div>
+      <div><div class="l">위치</div><div class="v">수원 인계동</div></div>
+      <div><div class="l">작성</div><div class="v">디파인플랜</div></div>
+      <div><div class="l">작성일</div><div class="v">2026. 9. 30</div></div>
+    </div>
+    <p class="intro">
+      이 문서는 새 프로그램을 시작하기 전에 병원과 함께 확인할 항목을 정리한 것입니다.<br>
+      오늘 자리에서 답을 채우고, 그 답을 바탕으로 2차 미팅에서 실행안을 드리겠습니다.<br>
+      당일 답이 어려운 항목은 담당자와 회신 기한만 적어 두고 넘어가도 괜찮습니다.
+    </p>
+    <div class="toc">
+      <div><span class="n">01</span>프로그램명·네이밍<span class="p">2</span></div>
+      <div><span class="n">06</span>원가·수가<span class="p">4</span></div>
+      <div><span class="n">02</span>시술 개요와 적응증<span class="p">2</span></div>
+      <div><span class="n">07</span>상담·매출 목표<span class="p">4</span></div>
+      <div><span class="n">03</span>타깃 환자와 핵심 메시지<span class="p">3</span></div>
+      <div><span class="n">08</span>의료진 검토·리스크 관리<span class="p">5</span></div>
+      <div><span class="n">04</span>인계동 상권·경쟁 현황<span class="p">3</span></div>
+      <div><span class="n">09</span>런칭 일정<span class="p">5</span></div>
+      <div><span class="n">05</span>홍보·상담 전환 실행 계획<span class="p">6</span></div>
+      <div><span class="n">10</span>오늘 받아가야 할 것<span class="p">7</span></div>
+    </div>
+  </div>
+  <div class="sign">
+    <div class="who">디파인플랜 드림</div>
+    <div class="date">2026. 9. 30 · 1차 미팅</div>
+  </div>
+</section>
+
+<!-- 2면 -->
+<section class="page">
+  <div class="hd"><span><b>디파인플랜</b> · 신규 프로그램 기획안</span><span>미세성형외과 · 수원 인계동</span></div>
+
+  <div class="sec">
+    <div class="sec-h"><span class="no">01</span><h2>프로그램명·네이밍</h2></div>
+    <table>
+      <colgroup><col style="width:21%"><col style="width:44%"><col style="width:35%"></colgroup>
+      <tr><th>확인 항목</th><th>미팅에서 확인할 내용</th><th>답변</th></tr>
+      <tr class="mid"><td class="k">차트명</td><td class="q">진료 차트·수납에 올라가는 정식 시술명</td><td class="a"></td></tr>
+      <tr class="mid"><td class="k">홍보 네이밍</td><td class="q">블로그·인스타·플랫폼에 노출할 이름. 병원 고유 네이밍을 쓸지, 검색되는 일반 시술명을 앞에 둘지</td><td class="a"></td></tr>
+      <tr class="mid"><td class="k">이름의 직관성</td><td class="q">부위와 결과(볼륨, 리프팅, 자연스러움)가 환자 입장에서 바로 읽히는지</td><td class="a"></td></tr>
+      <tr class="mid"><td class="k">의료광고 심의</td><td class="q">‘부작용 없음’, ‘영구’, ‘100%’, ‘최초·유일’ 같은 표현은 심의에서 걸립니다. 네이밍과 카피 모두 한 번 거릅니다</td><td class="a"></td></tr>
+    </table>
+    <div class="note"><b>제안</b> · 검색 유입을 생각하면 ‘고유 네이밍 + 일반 시술명’ 병기가 안전합니다. 예: OO리프팅(실리프팅)</div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-h"><span class="no">02</span><h2>시술 개요와 적응증</h2></div>
+    <table>
+      <colgroup><col style="width:21%"><col style="width:44%"><col style="width:35%"></colgroup>
+      <tr><th>확인 항목</th><th>미팅에서 확인할 내용</th><th>답변</th></tr>
+      <tr class="mid"><td class="k">대상 고민</td><td class="q">처짐, 비대칭, 노화, 윤곽 등 어떤 고민으로 오는 환자에게 권하는지</td><td class="a"></td></tr>
+      <tr class="mid"><td class="k">시술 방식</td><td class="q">원리, 장비·재료·수술 기법. 단독 시술인지 조합 시술인지</td><td class="a"></td></tr>
+      <tr class="mid"><td class="k">시술 전후</td><td class="q">마취 방식, 시술 시간, 다운타임, 실밥 제거·재내원 횟수</td><td class="a"></td></tr>
+      <tr class="mid"><td class="k">체감 효과</td><td class="q">환자가 거울과 주변 반응으로 느끼는 변화. 효과가 나타나는 시점과 유지 기간</td><td class="a"></td></tr>
+      <tr class="mid"><td class="k">우리 병원 차별점</td><td class="q">대표원장 직접 집도, 절개 최소화, 1:1 디자인, 사후관리 등 경쟁 병원과 실제로 다른 점</td><td class="a"></td></tr>
+    </table>
+    <div class="note"><b>확인 포인트</b> · 차별점은 원장님이 생각하는 것과 환자가 상담에서 실제로 묻는 것이 다를 수 있어, 실장님 의견도 같이 듣습니다.</div>
+  </div>
+
+  <div class="ft"><span>디파인플랜 · 2026. 9. 30</span><span class="pg">2</span></div>
+</section>
+
+<!-- 3면 -->
+<section class="page">
+  <div class="hd"><span><b>디파인플랜</b> · 신규 프로그램 기획안</span><span>미세성형외과 · 수원 인계동</span></div>
+
+  <div class="sec">
+    <div class="sec-h"><span class="no">03</span><h2>타깃 환자와 핵심 메시지</h2></div>
+    <table>
+      <colgroup><col style="width:21%"><col style="width:44%"><col style="width:35%"></colgroup>
+      <tr><th>확인 항목</th><th>미팅에서 확인할 내용</th><th>답변</th></tr>
+      <tr class="mid"><td class="k">주 타깃</td><td class="q">연령대, 성별, 직업군. 상담에서 자주 나오는 고민 패턴</td><td class="a"></td></tr>
+      <tr class="tall"><td class="k">유입 채널</td><td class="q">네이버(플레이스·블로그·파워링크), 인스타그램·릴스, 유튜브 쇼츠, 강남언니·바비톡·여신티켓, 기존 고객 알림톡 중 실제로 예약이 들어오는 채널</td><td class="a"></td></tr>
+      <tr class="tall"><td class="k">환자 불안</td><td class="q">통증, 붓기·멍, 회복 기간, 비용, 부작용, ‘티 나는 것’ 중 가장 많이 걱정하는 순서. 상담과 콘텐츠에서 어떻게 풀어줄지</td><td class="a"></td></tr>
+      <tr class="mid"><td class="k">메인 카피</td><td class="q">병원과 이 프로그램을 한 줄로 설명하는 문장. 심의 기준 안에서 신뢰가 가는 표현으로</td><td class="a"></td></tr>
+    </table>
+    <div class="note"><b>기준</b> · 채널은 ‘많이 쓰는 채널’이 아니라 ‘예약이 들어오는 채널’로 잡습니다. 실장님이 최근 예약 경로를 기록하고 있다면 그 자료부터 보면 빠릅니다.</div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-h"><span class="no">04</span><h2>인계동 상권·경쟁 현황</h2></div>
+    <p class="lead">인계동은 수원 대표 상업 지역이라 성형외과·피부과가 몰려 있고, 환자가 가격을 비교하기 쉬운 상권입니다. 가격만으로 싸우기보다 구성과 사후관리로 차이를 만드는 쪽이 유리합니다.</p>
+    <table>
+      <colgroup><col style="width:21%"><col style="width:44%"><col style="width:35%"></colgroup>
+      <tr><th>확인 항목</th><th>미팅에서 확인할 내용</th><th>답변</th></tr>
+      <tr class="mid"><td class="k">수요 추세</td><td class="q">최근 이 부위·시술 문의가 늘고 있는지. 검색량과 플랫폼 문의 추세는 디파인플랜이 조사해 2차 미팅에 가져갑니다</td><td class="a"></td></tr>
+      <tr class="mid"><td class="k">원내 문의</td><td class="q">기존 환자가 상담 중 먼저 물어본 적이 있는지, 그때 어떻게 응대했는지</td><td class="a"></td></tr>
+      <tr class="mid"><td class="k">경쟁 병원</td><td class="q">원장님이 의식하는 병원 2~3곳과 그 병원의 같은·비슷한 시술, 가격, 이벤트 구성</td><td class="a"></td></tr>
+      <tr class="mid"><td class="k">가격 포지션</td><td class="q">프리미엄 수가로 갈지, 합리적인 가격으로 케이스 수를 늘릴지</td><td class="a"></td></tr>
+      <tr class="mid"><td class="k">패키지·사후관리</td><td class="q">회차 구성, 관리 포함 여부 등 경쟁 병원보다 앞서는 점</td><td class="a"></td></tr>
+    </table>
+  </div>
+
+  <div class="ft"><span>디파인플랜 · 2026. 9. 30</span><span class="pg">3</span></div>
+</section>
+
+<!-- 4면 -->
+<section class="page">
+  <div class="hd"><span><b>디파인플랜</b> · 신규 프로그램 기획안</span><span>미세성형외과 · 수원 인계동</span></div>
+
+  <div class="sec">
+    <div class="sec-h"><span class="no">05</span><h2>원가·수가</h2></div>
+    <table>
+      <colgroup><col style="width:21%"><col style="width:44%"><col style="width:35%"></colgroup>
+      <tr><th>확인 항목</th><th>미팅에서 확인할 내용</th><th>답변</th></tr>
+      <tr class="tall"><td class="k">정가·이벤트가</td><td class="q">1회 기준 정가, 오픈 이벤트가, 회차 패키지가. 재료비·원내 소모품·의료진·스태프 인건비를 감안한 최소 수가</td><td class="a"></td></tr>
+      <tr class="mid"><td class="k">비급여 고지</td><td class="q">비급여 진료비 고지(홈페이지·원내 게시)에 반영할 명칭과 금액</td><td class="a"></td></tr>
+      <tr class="mid"><td class="k">초기 투자</td><td class="q">장비·팁 구매, 전용 소모품, 사전 홍보비 등 런칭 전 필요한 예산</td><td class="a"></td></tr>
+      <tr class="mid"><td class="k">운영 책임</td><td class="q">수술방 일정, 예약 전환율, 시술 진행 현황을 누가 챙기는지(원장·실장·코디)</td><td class="a"></td></tr>
+    </table>
+    <div class="note red"><b>주의</b> · 이벤트가는 마감 기한과 인원 제한을 함께 정해야 정가로 돌아올 수 있습니다. 이벤트가가 사실상 정가가 되면 이후 수가 조정이 어렵습니다.</div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-h"><span class="no">06</span><h2>상담·매출 목표</h2></div>
+    <table>
+      <colgroup><col style="width:21%"><col style="width:44%"><col style="width:35%"></colgroup>
+      <tr><th>확인 항목</th><th>미팅에서 확인할 내용</th><th>답변</th></tr>
+      <tr class="mid"><td class="k">30·60·90일 목표</td><td class="q">런칭 후 신규 문의 수와 내원 상담 예약 수</td><td class="a"></td></tr>
+      <tr class="mid"><td class="k">케이스 수</td><td class="q">월간·연간 목표 시술 건수</td><td class="a"></td></tr>
+      <tr class="mid"><td class="k">매출</td><td class="q">첫 분기, 첫해 예상 매출</td><td class="a"></td></tr>
+      <tr class="mid"><td class="k">전환율 기준</td><td class="q">문의 → 예약 → 내원 → 결제 각 단계의 현재 수치. 없으면 첫 달 실측 후 기준을 잡습니다</td><td class="a"></td></tr>
+    </table>
+    <div class="note"><b>기준</b> · 원장님이 원하는 숫자와 수술방·인력으로 소화 가능한 숫자를 따로 확인합니다. 둘이 다르면 소화 가능한 숫자를 기준으로 홍보 예산을 잡습니다.</div>
+  </div>
+
+  <div class="ft"><span>디파인플랜 · 2026. 9. 30</span><span class="pg">4</span></div>
+</section>
+
+<!-- 5면 -->
+<section class="page">
+  <div class="hd"><span><b>디파인플랜</b> · 신규 프로그램 기획안</span><span>미세성형외과 · 수원 인계동</span></div>
+
+  <div class="sec">
+    <div class="sec-h"><span class="no">07</span><h2>의료진 검토·리스크 관리</h2></div>
+    <table>
+      <colgroup><col style="width:21%"><col style="width:44%"><col style="width:35%"></colgroup>
+      <tr><th>확인 항목</th><th>미팅에서 확인할 내용</th><th>답변</th></tr>
+      <tr class="tall"><td class="k">일정 간섭</td><td class="q">기존 주력 수술 일정, 수술실·회복실 동선과 겹치지 않는지. 주당 배정 가능한 시술 슬롯</td><td class="a"></td></tr>
+      <tr class="mid"><td class="k">동의서</td><td class="q">붓기·멍·비대칭 등 부작용 안내가 담긴 시술 동의서 준비 여부</td><td class="a"></td></tr>
+      <tr class="tall"><td class="k">컴플레인 대응</td><td class="q">부작용·불만 발생 시 응대 순서와 담당자(실장 → 원장), 재시술·환불 기준</td><td class="a"></td></tr>
+      <tr class="tall"><td class="k">전후 사진</td><td class="q">촬영·활용 동의서. 광고에 쓸 때는 심의 기준(동일 조건 촬영, 부작용 고지 문구)을 따를 것</td><td class="a"></td></tr>
+    </table>
+    <div class="note"><b>제안</b> · 전후 사진은 홍보 콘텐츠의 핵심이라 동의서 양식을 런칭 전에 정리해 두는 게 좋습니다.</div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-h"><span class="no">08</span><h2>런칭 일정</h2></div>
+    <table>
+      <colgroup><col style="width:21%"><col style="width:44%"><col style="width:35%"></colgroup>
+      <tr><th>확인 항목</th><th>미팅에서 확인할 내용</th><th>날짜</th></tr>
+      <tr class="mid"><td class="k">광고 심의 접수</td><td class="q">심의 소요 기간(통상 수 주)을 감안해 노출 시작일에서 역산한 접수일</td><td class="a"></td></tr>
+      <tr class="mid"><td class="k">자료 완성</td><td class="q">실장 상담 매뉴얼, 브로슈어, 랜딩페이지 완료 시점</td><td class="a"></td></tr>
+      <tr class="mid"><td class="k">기존 고객 사전 안내</td><td class="q">VIP·기존 내원객 알림톡·문자 발송일</td><td class="a"></td></tr>
+      <tr class="mid"><td class="k">예약 오픈·시술 시작</td><td class="q">공식 상담 시작일과 첫 시술일</td><td class="a"></td></tr>
+    </table>
+    <div class="note"><b>순서</b> · 심의 접수 → 자료 완성 → 기존 고객 선공개 → 예약 오픈. 오늘 목표 런칭일을 잡으면 역산해 2차 미팅에서 확정합니다.</div>
+  </div>
+
+  <div class="ft"><span>디파인플랜 · 2026. 9. 30</span><span class="pg">5</span></div>
+</section>
+
+<!-- 6면 -->
+<section class="page">
+  <div class="hd"><span><b>디파인플랜</b> · 신규 프로그램 기획안</span><span>미세성형외과 · 수원 인계동</span></div>
+
+  <div class="sec">
+    <div class="sec-h"><span class="no">09</span><h2>홍보·상담 전환 실행 계획</h2></div>
+    <p class="lead">아래 제작물은 디파인플랜이 만들고, 병원은 원장님 검수와 실장님 상담 반영을 맡습니다. 확정일은 목표 런칭일에서 역산해 채웁니다.</p>
+    <table>
+      <colgroup><col style="width:22%"><col style="width:31%"><col style="width:29%"><col style="width:18%"></colgroup>
+      <tr><th>제작물</th><th>내용</th><th>병원 확인 사항</th><th>확정일</th></tr>
+      <tr class="xl"><td class="k">메인 카피·키 비주얼</td><td class="q">전 채널에 공통으로 쓰는 한 줄 카피와 대표 이미지</td><td class="q">원장님 카피 컨펌, 심의 검토</td><td class="a"></td></tr>
+      <tr class="xl"><td class="k">상담 태블릿 자료·브로슈어</td><td class="q">실장님이 상담 중 보여주는 시술 설명·전후·가격 안내</td><td class="q">상담 흐름에 맞는지 실장님 검토</td><td class="a"></td></tr>
+      <tr class="xl"><td class="k">원장 칼럼·블로그·전후 관리 안내문</td><td class="q">검색 유입용 글과 시술 후 환자에게 주는 안내문</td><td class="q">의학적 내용 원장님 감수</td><td class="a"></td></tr>
+      <tr class="xl"><td class="k">재방문 알림톡·문자</td><td class="q">기존 고객 선공개 안내와 이벤트 문구</td><td class="q">발송 가능한 DB 규모, 수신 동의 여부</td><td class="a"></td></tr>
+      <tr class="xl"><td class="k">SNS·플랫폼 콘텐츠</td><td class="q">인스타그램·릴스·쇼츠, 강남언니·바비톡 등록용</td><td class="q">원장님 출연 가능 여부, 원내 촬영 일정</td><td class="a"></td></tr>
+      <tr class="xl"><td class="k">플레이스·홈페이지 시술 안내</td><td class="q">시술 항목 추가, 비급여 가격 고지 반영</td><td class="q">홈페이지 수정 권한·담당자</td><td class="a"></td></tr>
+    </table>
+    <div class="note"><b>상담 전환</b> · 전환은 자료보다 실장님 응대에서 갈립니다. 런칭 전 상담 스크립트를 한 번 같이 맞추는 시간을 잡습니다.</div>
+  </div>
+
+  <div class="ft"><span>디파인플랜 · 2026. 9. 30</span><span class="pg">6</span></div>
+</section>
+
+<!-- 7면 -->
+<section class="page">
+  <div class="hd"><span><b>디파인플랜</b> · 신규 프로그램 기획안</span><span>미세성형외과 · 수원 인계동</span></div>
+
+  <div class="sec">
+    <div class="sec-h"><span class="no">10</span><h2>오늘 받아가야 할 것</h2></div>
+    <div class="checks">
+      <div><span class="box"></span>프로그램 후보 시술 확정 (1개, 또는 우선순위 2~3개)</div>
+      <div><span class="box"></span>기존 환자 DB 규모와 알림톡 발송 가능 여부</div>
+      <div><span class="box"></span>차트명과 홍보 네이밍 후보</div>
+      <div><span class="box"></span>전후 사진·원장님 프로필 사진 보유 여부</div>
+      <div><span class="box"></span>정가·이벤트가 범위</div>
+      <div><span class="box"></span>홈페이지·플레이스·SNS 운영 현황과 관리 권한</div>
+      <div><span class="box"></span>원내 담당자(실장님) 지정과 연락처</div>
+      <div><span class="box"></span>목표 런칭일</div>
+      <div><span class="box"></span>2차 미팅 일정</div>
+      <div></div>
+    </div>
+
+    <div class="sec" style="margin-top:9mm">
+      <div class="memo-l">미팅 메모</div>
+      <div class="memo"></div>
+    </div>
+
+    <div class="card">
+      <div class="t">오늘 확인한 내용으로<br>2차 미팅에서 실행안을 드리겠습니다</div>
+      <div class="c"><b>디파인플랜</b>총괄 · 서묘정<br>010-2439-9131 · defineplan@gmail.com</div>
+    </div>
+  </div>
+
+  <div class="ft"><span>디파인플랜 · 2026. 9. 30</span><span class="pg">7</span></div>
+</section>
+
+</body>
+</html>
