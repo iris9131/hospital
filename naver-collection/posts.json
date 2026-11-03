@@ -1,0 +1,22 @@
+{
+  "updated": "2026-11-03",
+  "note": "로컬 Claude Code에서 /naver-hospital-writing 스킬이 채운다. 아래 첫 항목은 기준 예시이며 본문을 아직 읽지 않았다.",
+  "posts": [
+    {
+      "url": "https://blog.naver.com/seoulclear_busan/224289640077",
+      "blog_id": "seoulclear_busan",
+      "hospital": "",
+      "dept": "기타",
+      "type": "브랜딩",
+      "title": "기준 예시 글 (본문 수집 전)",
+      "date": "",
+      "summary": "사용자가 '이런 식'이라고 준 기준 예시. 스킬이 본문을 읽고 이 항목을 채운다.",
+      "structure": [],
+      "quotes": [],
+      "why_good": "",
+      "caution": "",
+      "scores": { "authenticity": 0, "specificity": 0, "voice": 0 },
+      "status": "candidate"
+    }
+  ]
+}
