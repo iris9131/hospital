@@ -1,0 +1,252 @@
+<title>미세성형외과 작업함</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500;700;800&family=IBM+Plex+Sans+KR:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: one index for the client — what to open first, the November schedule, every document as a dated row, drafts inline. Stitch rule matches the strategy board. */
+:root{
+  --bg:#F5F4F9; --surface:#FFFFFF; --sunk:#EEEDF4; --ink:#1D1A2C; --muted:#5F5B73; --line:#DCD9E6;
+  --accent:#5A3EAE; --naver:#0B8A46; --ai:#2459C2; --warn:#9A6200; --crit:#BF3B27; --ok:#2C7A4C;
+  --f-display:"Gothic A1","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#14121D; --surface:#1D1A29; --sunk:#252233; --ink:#ECEAF4; --muted:#A7A2BC; --line:#363249;
+  --accent:#AE98F2; --naver:#52CC8A; --ai:#7FA9F4; --warn:#E3B34E; --crit:#F08872; --ok:#6DC995; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#14121D; --surface:#1D1A29; --sunk:#252233; --ink:#ECEAF4; --muted:#A7A2BC; --line:#363249;
+  --accent:#AE98F2; --naver:#52CC8A; --ai:#7FA9F4; --warn:#E3B34E; --crit:#F08872; --ok:#6DC995; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.6;word-break:keep-all;overflow-wrap:anywhere}
+.wrap{max-width:1040px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:32px 56px;display:grid;gap:36px}
+h1,h2,h3,h4{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.3}
+h1{font-size:clamp(26px,4.4vw,36px);font-weight:800;letter-spacing:-.02em}
+h2{font-size:20px;font-weight:800}
+h3{font-size:16px;font-weight:700}
+h4{font-size:15.5px;font-weight:700;margin-top:6px}
+p{margin:0}
+a{color:var(--accent)}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.label{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.stitch{height:12px;position:relative;color:var(--accent)}
+.stitch::before{content:"";position:absolute;inset:5px 0 auto;height:2px;background:repeating-linear-gradient(90deg,currentColor 0 16px,transparent 16px 28px)}
+.stitch::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 7px,currentColor 7px 9px,transparent 9px 28px);opacity:.55}
+header{display:grid;gap:14px}
+header p{color:var(--muted);max-width:64ch}
+section{display:grid;gap:14px}
+.sec-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 16px}
+.sec-head p{font-size:14px;color:var(--muted);max-width:62ch}
+
+.note{display:grid;gap:6px;background:color-mix(in srgb,var(--warn) 9%,var(--surface));border:1px solid color-mix(in srgb,var(--warn) 45%,transparent);border-radius:10px;padding:14px 18px;font-size:14px}
+.note b{font-family:var(--f-display)}
+
+/* start here */
+.start{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;display:grid;gap:10px;align-content:start}
+.card.main{border:2px solid var(--accent)}
+.card .meta{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;color:var(--muted)}
+.card ul{margin:0;padding-left:18px;font-size:14px;display:grid;gap:3px}
+.open{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:14px;text-decoration:none;color:var(--surface);background:var(--accent);border-radius:8px;padding:7px 12px;justify-self:start}
+.open.ghost{background:transparent;color:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 50%,transparent)}
+.tag{font-size:11.5px;font-weight:600;padding:1px 8px;border-radius:999px;white-space:nowrap}
+.t-data{color:var(--ok);background:color-mix(in srgb,var(--ok) 13%,transparent)}
+.t-guess{color:var(--warn);background:color-mix(in srgb,var(--warn) 14%,transparent)}
+.t-doc{color:var(--ai);background:color-mix(in srgb,var(--ai) 13%,transparent)}
+
+/* tables */
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;vertical-align:top;padding:10px 13px;border-top:1px solid var(--line)}
+thead th{border-top:0;font-family:var(--f-mono);font-size:11.5px;letter-spacing:.05em;color:var(--muted);font-weight:500;background:var(--sunk);white-space:nowrap}
+.sched{min-width:760px}
+.sched td.d{font-family:var(--f-mono);font-size:12.5px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.sched td.n{font-family:var(--f-mono);font-size:12.5px;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.sched tr.past td.d{color:var(--crit)}
+.sched tr.wk td{border-top:2px solid var(--line)}
+.kw{font-weight:600}
+.loc{font-size:11px;font-weight:600;color:var(--naver);margin-left:4px}
+.docs{min-width:680px}
+.docs td.d{font-family:var(--f-mono);font-size:12.5px;white-space:nowrap}
+.docs td:nth-child(2){font-weight:600}
+
+/* drafts */
+.post{background:var(--surface);border:1px solid var(--line);border-radius:10px}
+.post+.post{margin-top:-4px}
+.post summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 18px}
+.post summary::-webkit-details-marker{display:none}
+.post .pt{font-family:var(--f-display);font-weight:700}
+.post .hint{font-size:12px;color:var(--accent);white-space:nowrap}
+.post[open] .hint{color:var(--muted)}
+.post .body{padding:4px 18px 18px;display:grid;gap:10px;max-width:72ch;font-size:14.5px;border-top:1px solid var(--line)}
+.post .body ul,.post .body ol{margin:0;padding-left:20px;display:grid;gap:3px}
+.post .body table{font-size:13.5px}
+.post .body .scroll{max-width:100%}
+mark{background:color-mix(in srgb,var(--warn) 18%,transparent);color:var(--ink);border-radius:3px;padding:0 2px}
+code{font-family:var(--f-mono);font-size:12.5px;background:var(--sunk);padding:1px 5px;border-radius:4px}
+
+footer{font-size:12.5px;color:var(--muted);display:grid;gap:8px}
+
+@media (max-width:760px){ .start{grid-template-columns:minmax(0,1fr)} }
+</style>
+
+<div class="wrap">
+<header>
+  <div class="label">디파인플랜 · 미세성형외과의원 (수원 인계동)</div>
+  <h1>미세성형외과 작업함</h1>
+  <p>지금까지 만든 기획·분석·원고를 한곳에 모았습니다. 각 문서는 원래 자리에 그대로 있고, 여기서는 무엇을 먼저 열지와 이번 달 일정만 정리했습니다. 기준일 2026. 11. 3.</p>
+  <div class="stitch" aria-hidden="true"></div>
+</header>
+
+<div class="note">
+  <b>'글마다 후보 6개'는 찾지 못했습니다.</b>
+  <span>열어 볼 수 있는 문서와 작업 기록을 모두 확인했지만, 글마다 후보를 6개씩 적은 자료는 없었습니다. 가장 가까운 것은 '첫 달 블로그 키워드 제안'의 글별 제목 A·B안과, 그 문서 '11월 후보 고르기' 탭의 후보 33개입니다. 내 컴퓨터(E: 드라이브 등)에서 작업한 것이라면 이 세션에서는 열 수 없습니다.</span>
+</div>
+
+<section>
+  <div class="sec-head"><h2>먼저 열 것</h2><p>실제 검색 데이터로 만든 문서가 기준입니다. 봉합 보드는 데이터 없이 만든 보조 자료입니다.</p></div>
+  <div class="start">
+    <div class="card main">
+      <div class="meta"><span class="tag t-data">실제 데이터</span><span>10월 23~24일 · 다른 대화에서 작성</span></div>
+      <h3>첫 달 블로그 키워드 제안</h3>
+      <ul>
+        <li><b>첫 탭:</b> 11월 12편 일정, 글별 제목 A·B안, 목차</li>
+        <li><b>11월 후보 고르기:</b> 후보 33개, 월 조회수·경쟁도, '이번 달/다음 달' 선택</li>
+        <li><b>상위글 분석:</b> 첫 화면 블로그 59편 분석, 키워드별 '우리 글 목차'</li>
+      </ul>
+      <a class="open" href="https://claude.ai/artifact/Wb1ZFNqC9RMiUNJ5qgsky2" target="_blank" rel="noopener">문서 열기 ↗</a>
+    </div>
+    <div class="card">
+      <div class="meta"><span class="tag t-guess">추정 포함</span><span>10월 23일 · 이 대화</span></div>
+      <h3>봉합 검색 전략 보드</h3>
+      <ul>
+        <li>채널별 진료시간 불일치 진단</li>
+        <li>봉합 키워드 지도, AI 질문형 키워드, 제목 10쌍</li>
+        <li>조회수 칸은 비어 있음 (네이버 미접속)</li>
+      </ul>
+      <a class="open ghost" href="https://claude.ai/artifact/BGkE7Wyj3sDsoUuiubpLna" target="_blank" rel="noopener">보드 열기 ↗</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><h2>11월 발행 일정 · 12편</h2><p>'첫 달 블로그 키워드 제안'에서 옮겨 왔습니다. 월·수·금 발행이고, 두 문서 모두 상태가 '작성 전'으로 남아 있습니다. 붉은 날짜는 오늘(11/3) 이전입니다.</p></div>
+  <div class="scroll"><table class="sched">
+    <thead><tr><th>발행</th><th>메인 키워드</th><th>월 조회수</th><th>경쟁도</th><th>추천 제목</th></tr></thead>
+    <tbody>
+      <tr class="past"><td class="d">10/26 월</td><td><span class="kw">귓볼 피지낭종</span></td><td class="n">2,490</td><td class="n">0.02</td><td>귓볼 피지낭종, 손으로 짜도 되는지와 째야 하는 때</td></tr>
+      <tr class="past"><td class="d">10/28 수</td><td><span class="kw">인계동 성형외과</span><span class="loc">지역</span></td><td class="n">480</td><td class="n">0.18</td><td>인계동 성형외과 봉합, 얼굴이 찢어졌을 때 흉터를 가르는 3가지 (05 원고)</td></tr>
+      <tr class="past"><td class="d">10/30 금</td><td><span class="kw">모기질종</span></td><td class="n">1,510</td><td class="n">0.05</td><td>모기질종, 뾰루지인 줄 알았던 아이 혹 꼭 수술해야 할까</td></tr>
+      <tr class="past wk"><td class="d">11/2 월</td><td><span class="kw">사타구니 피지낭종</span></td><td class="n">2,140</td><td class="n">0.07</td><td>사타구니 피지낭종, 종기인지 헷갈릴 때 어느 병원으로 갈까</td></tr>
+      <tr><td class="d">11/4 수</td><td><span class="kw">평택 쥐젖제거</span><span class="loc">지역</span></td><td class="n">180</td><td class="n">0.10</td><td>평택 쥐젖제거, 송탄·고덕에서 목·겨드랑이 쥐젖 뗄 곳을 찾는다면</td></tr>
+      <tr><td class="d">11/6 금</td><td><span class="kw">피부섬유종</span></td><td class="n">3,810</td><td class="n">0.15</td><td>피부섬유종, 딱지처럼 뜯어도 안 없어지는 단단한 점</td></tr>
+      <tr class="wk"><td class="d">11/9 월</td><td><span class="kw">오산 지방종</span><span class="loc">지역</span></td><td class="n">40 미만</td><td class="n">0.16</td><td>오산 지방종, 동네 외과에서 못 짼다고 했다면</td></tr>
+      <tr><td class="d">11/11 수</td><td><span class="kw">눈썹하거상술</span></td><td class="n">2,400</td><td class="n">0.14</td><td>눈썹하거상술, 흉터가 눈에 띌지 걱정된다면</td></tr>
+      <tr><td class="d">11/13 금</td><td><span class="kw">안산 피지낭종</span><span class="loc">지역</span></td><td class="n">120</td><td class="n">0.41</td><td>안산 피지낭종, 등·얼굴 혹이 터지고 다시 차오를 때</td></tr>
+      <tr class="wk"><td class="d">11/16 월</td><td><span class="kw">동탄 성형외과</span><span class="loc">지역</span></td><td class="n">970</td><td class="n">0.19</td><td>동탄 성형외과, 흉터·봉합·혹 제거를 함께 보는 곳을 찾는다면</td></tr>
+      <tr><td class="d">11/18 수</td><td><span class="kw">겨드랑이 쥐젖</span></td><td class="n">4,130</td><td class="n">0.17</td><td>겨드랑이 쥐젖, 실로 묶어 떼도 되는지 묻는 분들께</td></tr>
+      <tr><td class="d">11/20 금</td><td><span class="kw">미니거상</span></td><td class="n">4,400</td><td class="n">0.16</td><td>미니거상, 흉터와 유지기간부터 확인하세요</td></tr>
+    </tbody></table></div>
+  <p style="font-size:13px;color:var(--muted)">경쟁도 = 최근 30일 새 블로그 글 수 ÷ 월 조회수. 작을수록 찾는 사람에 비해 글이 적습니다. 다음 달로 미룬 4편(주저흔·고환 피지낭종·피지선모반·이수열 수술)과 나머지 후보는 문서의 '11월 후보 고르기' 탭에 있습니다.</p>
+</section>
+
+<section>
+  <div class="sec-head"><h2>모든 문서</h2><p>날짜순입니다. 링크는 모두 본인 계정으로만 열립니다.</p></div>
+  <div class="scroll"><table class="docs">
+    <thead><tr><th>날짜</th><th>문서</th><th>종류</th><th>내용</th><th>열기</th></tr></thead>
+    <tbody>
+      <tr><td class="d">09/30</td><td>신규 프로그램 기획안</td><td><span class="tag t-doc">기획</span></td><td>1차 미팅 확인지 (A4 7면)</td><td><a href="https://claude.ai/artifact/SdeteZqPj8YVBMj8webgde" target="_blank" rel="noopener">열기 ↗</a></td></tr>
+      <tr><td class="d">10/19</td><td>1차 미팅 정리</td><td><span class="tag t-doc">기록</span></td><td>미팅에서 확인한 내용</td><td><a href="https://claude.ai/artifact/FSVpaF3bB9y7dy6JZvNyou" target="_blank" rel="noopener">열기 ↗</a></td></tr>
+      <tr><td class="d">10/19</td><td>원장 인터뷰 정리</td><td><span class="tag t-doc">기록</span></td><td>원장님 인터뷰 내용</td><td><a href="https://claude.ai/artifact/SJzEM8hgTsD6rWrg3jG3BK" target="_blank" rel="noopener">열기 ↗</a></td></tr>
+      <tr><td class="d">10/23</td><td>첫 달 블로그 키워드 제안</td><td><span class="tag t-data">실제 데이터</span></td><td>12편 일정, 후보 33개, 상위글 59편 분석</td><td><a href="https://claude.ai/artifact/Wb1ZFNqC9RMiUNJ5qgsky2" target="_blank" rel="noopener">열기 ↗</a></td></tr>
+      <tr><td class="d">10/23</td><td>봉합 검색 전략 보드</td><td><span class="tag t-guess">추정 포함</span></td><td>봉합 진단, 키워드 지도, 제목 10쌍</td><td><a href="https://claude.ai/artifact/BGkE7Wyj3sDsoUuiubpLna" target="_blank" rel="noopener">열기 ↗</a></td></tr>
+      <tr><td class="d">10/23</td><td>봉합 1차 블로그 초안 3편</td><td><span class="tag t-guess">추정 포함</span></td><td>아래에 펼쳐 볼 수 있음 · GitHub에도 저장</td><td><a href="#drafts">아래로</a></td></tr>
+    </tbody></table></div>
+</section>
+
+<section id="drafts">
+  <div class="sec-head"><h2>봉합 1차 블로그 초안 3편</h2><p>상위글과 비교하지 않고 쓴 초안입니다. 11월 일정의 '인계동 성형외과(05 원고)'와 주제가 겹치니, 05 원고를 먼저 쓰고 이 3편은 보조 글로 돌리기를 권합니다. 노란 칸은 원장 확인이 필요한 곳입니다.</p></div>
+<details class="post"><summary><span class="pt">1편. 수원 아이 이마 찢어짐, 응급실과 성형외과 어디로 가야 할까</span><span class="hint">펼쳐 보기</span></summary><div class="body"><p><b>썸네일 문구:</b> 아이 이마가 찢어졌을 때 / 응급실? 성형외과? / 순서대로 정리</p>
+<p>놀이터에서 넘어지거나 식탁 모서리에 부딪혀 아이 이마가 찢어지면, 부모님은 피부터 보고 당황하십니다. 그리고 바로 고민이 시작되죠. 응급실로 가야 할지, 성형외과로 가야 할지.</p>
+<p>이 글은 그 순간에 해야 할 일을 순서대로 정리했습니다.</p>
+<h4>① 먼저 지혈부터 하세요</h4>
+<ul><li>깨끗한 거즈나 수건으로 상처를 <b>10분 이상 꾹 눌러</b> 주세요.</li><li>중간에 떼어서 확인하지 마세요. 떼는 순간 다시 피가 납니다.</li><li>휴지는 섬유가 상처에 남을 수 있어 피하는 게 좋습니다.</li><li>연고나 가루약은 바르지 마세요. 진료할 때 상처를 보기 어려워집니다.</li></ul>
+<p><mark>[사진: 거즈로 압박하는 방법 일러스트 또는 원내 거즈·드레싱 키트]</mark></p>
+<h4>② 이럴 땐 바로 응급실로 가세요</h4>
+<p>아래 중 하나라도 있으면 성형외과가 아니라 <b>응급실</b>이 먼저입니다.</p>
+<ul><li>10~15분 눌러도 피가 멈추지 않을 때</li><li>부딪힌 뒤 <b>구토를 반복하거나, 처지고 졸려하거나, 평소와 다르게 행동할 때</b></li><li>경련이 있었거나 잠깐이라도 의식을 잃었을 때</li><li>눈이나 눈꺼풀을 다쳤을 때, 잘 안 보인다고 할 때</li><li>상처 안으로 뼈가 보이거나, 부딪힌 부위가 움푹 들어간 느낌이 들 때</li></ul>
+<p>이마는 머리를 부딪힌 것이기도 합니다. 상처보다 <b>머리 안쪽 손상</b>을 먼저 확인해야 하는 경우가 있습니다. 응급실에서는 CT 같은 검사를 바로 할 수 있습니다.</p>
+<h4>③ 이런 경우는 성형외과 봉합을 고려하세요</h4>
+<ul><li>위 증상이 없고</li><li>눌러서 피가 멈췄는데</li><li>상처가 벌어져 있어 꿰매야 할 것 같을 때</li></ul>
+<p>얼굴, 특히 이마는 흉터가 그대로 보이는 자리입니다. 성형외과에서는 피부 속층과 겉층을 나눠 봉합하고, 가는 실로 피부 결을 맞춰 흉터를 최소화하는 데 집중합니다.</p>
+<p><mark>[사진: 처치실 전경 / 봉합용 기구 트레이]</mark></p>
+<h4>④ 응급실과 성형외과, 무엇이 다른가요</h4>
+<div class="scroll"><table><thead><tr><th></th><th>응급실</th><th>성형외과</th></tr></thead><tbody><tr><td>먼저 가야 할 때</td><td>머리 손상 의심, 지혈 안 됨, 눈 손상</td><td>피가 멈췄고 상처만 벌어져 있을 때</td></tr><tr><td>검사</td><td>CT 등 영상검사 가능</td><td>상처 진찰 중심</td></tr><tr><td>대기</td><td>중증 환자가 먼저라 길어질 수 있음</td><td>병원마다 다름</td></tr><tr><td>봉합</td><td>병원·시간대에 따라 다름</td><td>성형외과 전문의가 직접</td></tr></tbody></table></div>
+<h4>⑤ 몇 시간 안에 꿰매야 하나요?</h4>
+<p>가능한 빨리 오시는 게 좋습니다. 얼굴은 피가 잘 통하는 부위라 다른 부위보다 여유가 있는 편입니다. 상처가 깨끗하게 덮여 있다면 24시간 안에 봉합할 경우 흉터에 큰 차이가 없다고 알려져 있습니다. 다만 시간이 늦어질수록 감염 위험은 올라갑니다. 밤에 다쳤다면 지혈 후 바로 진료 가능한 곳을 확인하세요.</p>
+<h4>⑥ 출발 전에 꼭 전화하세요</h4>
+<ul><li><b>아이에게 아무것도 먹이지 말고 먼저 전화하세요.</b> 아이가 어리거나 상처가 크면 수면 진정이 필요할 수 있습니다. 진정을 하려면 금식이 필요합니다. 먹은 시간에 따라 봉합이 몇 시간 늦어질 수 있습니다.</li><li>소아 봉합이 가능한지, 지금 진료 중인지 확인하세요.</li></ul>
+<h4>원장 코멘트</h4>
+<p><mark>[원장 확인: 소아 이마 열상에서 부모님이 가장 많이 묻는 질문과 원장님의 답 2~3문장. 예) &quot;피가 많이 나서 놀라시지만, 이마는 혈관이 많아 원래 피가 많이 나는 부위입니다. 놀라지 마시고 먼저 꾹 눌러 주세요.&quot;]</mark></p>
+<p><b>미세성형외과의원</b></p>
+<ul><li>성형외과 전문의 [원장 성함] · [이력, 예: 아주대병원 외상센터 출신 — 확인 후 기입]</li><li>수원 팔달구 권광로 191, 2층 (인계동, 수원시청역 인근)</li><li>진료시간 [모든 채널과 통일한 시간으로 기입] · 소아 봉합 [가능 여부·조건]</li></ul>
+<p>[지도 첨부]</p>
+<p><code>#수원봉합 #인계동봉합 #수원소아봉합 #아이이마찢어짐 #수원야간봉합 #얼굴열상 #수원성형외과</code></p></div></details>
+<details class="post"><summary><span class="pt">2편. 얼굴 실밥 제거 시기, 부위별로 며칠 뒤 오시면 되는지</span><span class="hint">펼쳐 보기</span></summary><div class="body"><p><b>썸네일 문구:</b> 실밥, 언제 풀어요? / 부위별 실밥 제거 시기 표</p>
+<p>봉합하고 나면 가장 많이 받는 질문이 &quot;실밥은 언제 풀어요?&quot;입니다. 실밥 제거 시기는 <b>꿰맨 부위에 따라 다릅니다.</b> 오늘은 부위별 기준과 그 사이 관리법을 정리했습니다.</p>
+<h4>왜 날짜를 지켜야 하나요</h4>
+<ul><li><b>너무 일찍 풀면:</b> 아직 붙지 않은 상처가 다시 벌어질 수 있습니다.</li><li><b>너무 늦게 풀면:</b> 실이 지나간 자리에 점 모양 자국이 남거나, 실 주변에 염증이 생길 수 있습니다.</li></ul>
+<p>얼굴처럼 흉터가 신경 쓰이는 부위일수록 날짜가 중요합니다.</p>
+<h4>부위별 실밥 제거 시기 (일반 기준)</h4>
+<div class="scroll"><table><thead><tr><th>부위</th><th>실밥 제거 시기</th></tr></thead><tbody><tr><td>얼굴 (이마·볼·턱·입술 주변)</td><td>약 5일 전후</td></tr><tr><td>눈꺼풀</td><td>약 3~5일</td></tr><tr><td>목</td><td>약 5~7일</td></tr><tr><td>두피</td><td>약 7~10일</td></tr><tr><td>가슴·배·등</td><td>약 10~14일</td></tr><tr><td>팔·다리</td><td>약 10~14일</td></tr><tr><td>손·손가락</td><td>약 10~14일</td></tr><tr><td>무릎·팔꿈치 등 관절</td><td>약 14일 전후</td></tr><tr><td>손바닥·발바닥</td><td>약 14~21일</td></tr></tbody></table></div>
+<p><mark>[원장 확인: 우리 병원 기준으로 수정]</mark></p>
+<p>아이는 회복이 빨라 조금 앞당기기도 합니다. 상처 깊이와 붙는 상태에 따라 달라지니, 봉합한 날 안내받은 날짜를 우선으로 따라 주세요.</p>
+<p><mark>[사진: 실밥 제거 기구 / 원내 처치 공간]</mark></p>
+<h4>실밥 풀기 전까지 이렇게 관리하세요</h4>
+<ul><li>샤워와 세안: <mark>[원장 확인: 봉합 후 몇 시간 뒤부터 물이 닿아도 되는지, 닦은 뒤 어떻게 말리는지]</mark></li><li>소독과 연고: <mark>[원장 확인: 집에서 소독이 필요한지, 연고 종류와 횟수]</mark></li><li>딱지는 억지로 떼지 마세요.</li><li>수영, 사우나, 찜질방은 실밥을 풀 때까지 피하세요.</li><li>아이가 긁지 않도록 밴드나 테이프를 붙여 두세요.</li></ul>
+<h4>날짜 전이라도 바로 오셔야 할 때</h4>
+<ul><li>상처 주변 붉은 기가 점점 넓어질 때</li><li>열감이 있거나 고름이 나올 때</li><li>통증이 줄지 않고 오히려 심해질 때</li><li>열이 날 때</li><li>실이 풀리거나 상처가 벌어졌을 때</li></ul>
+<h4>실밥을 푼 뒤가 더 중요합니다</h4>
+<p>실밥을 풀었다고 상처가 끝난 게 아닙니다. 흉터는 수개월에 걸쳐 자리를 잡습니다.</p>
+<ul><li><b>테이핑:</b> <mark>[원장 확인: 실밥 제거 후 스테리스트립 같은 테이프를 몇 주 붙이는지]</mark></li><li><b>자외선 차단:</b> 새 흉터는 햇빛에 색이 진해질 수 있습니다. 외출할 때 가려 주세요.</li><li><b>흉터 연고:</b> <mark>[원장 확인: 시작 시기와 사용 기간]</mark></li></ul>
+<h4>자주 묻는 질문</h4>
+<p><b>Q. 다른 병원에서 꿰맸는데 실밥만 풀러 가도 되나요?</b></p>
+<p><mark>[원장 확인: 타 병원 봉합 환자의 실밥 제거 가능 여부와, 내원 시 가져올 것]</mark></p>
+<p><b>Q. 녹는 실로 꿰맸다는데 안 풀어도 되나요?</b></p>
+<p><mark>[원장 확인: 피부 속은 녹는 실, 겉은 푸는 실을 쓰는 경우 등 설명]</mark></p>
+<p><b>미세성형외과의원</b> (1편과 동일한 병원 정보 블록)</p>
+<p>[지도 첨부]</p>
+<p><code>#실밥제거시기 #얼굴실밥제거 #봉합후관리 #수원실밥제거 #인계동봉합 #봉합흉터 #수원봉합</code></p></div></details>
+<details class="post"><summary><span class="pt">3편. 인계동 소아봉합, 아이가 움직일 때 수면 진정이 필요한 경우</span><span class="hint">펼쳐 보기</span></summary><div class="body"><p><b>썸네일 문구:</b> 아이가 울고 움직이면 / 꿰맬 수 있을까요? / 소아 봉합과 수면 진정</p>
+<p>아이 봉합을 앞둔 부모님이 가장 걱정하시는 건 아이가 무서워서 울고 움직이는 상황입니다. 이 글에서는 수면 진정이 필요한 경우와 필요 없는 경우, 그리고 금식처럼 미리 알아 두실 것을 정리했습니다.</p>
+<h4>아이가 움직이면 왜 어려울까요</h4>
+<p>얼굴 봉합은 아주 작은 간격으로 피부 결을 맞추는 작업입니다. 아이가 움직이면 정교하게 꿰매기 어렵고, 바늘을 다루는 상황이라 안전 문제도 생깁니다. 그래서 상황에 따라 아이를 잠시 재우는 수면 진정을 고려합니다.</p>
+<h4>수면 진정이 필요할 수 있는 경우</h4>
+<ul><li>아이가 어려 설명을 이해하고 가만히 있기 어려울 때 <mark>[원장 확인: 대략적인 연령 기준]</mark></li><li>상처가 길거나 여러 군데일 때</li><li>눈 주변, 입술 경계처럼 섬세한 봉합이 필요한 부위일 때</li><li>아이가 극도로 불안해 진료 자체가 어려울 때</li></ul>
+<h4>수면 진정 없이 하는 경우</h4>
+<ul><li>상처가 작고 아이가 협조할 수 있을 때: 국소마취로 봉합합니다.</li><li><mark>[원장 확인: 바르는 마취를 먼저 쓰는지]</mark></li><li><mark>[원장 확인: 피부 접착제나 테이프로 충분한 상처의 기준]</mark></li></ul>
+<p>진정 여부는 상처와 아이 상태를 직접 보고 원장이 부모님과 상의해 결정합니다.</p>
+<p><mark>[사진: 소아 처치 공간 / 모니터링 장비]</mark></p>
+<h4>진정 전에는 금식이 필요합니다</h4>
+<p>수면 진정을 하려면 위가 비어 있어야 합니다. 일반적인 기준은 다음과 같습니다.</p>
+<div class="scroll"><table><thead><tr><th>마지막으로 먹은 것</th><th>진정 전 금식 시간 (일반 기준)</th></tr></thead><tbody><tr><td>밥·간식·우유·분유</td><td>약 6시간</td></tr><tr><td>모유</td><td>약 4시간</td></tr><tr><td>맑은 물</td><td>약 2시간</td></tr></tbody></table></div>
+<p><mark>[원장 확인: 우리 병원 금식 기준으로 수정]</mark></p>
+<p>그래서 <b>아이가 다친 직후에는 달래려고 먹을 것을 주지 마시고, 먼저 병원에 전화해 주세요.</b> 먹은 시간에 따라 봉합 시간이 정해집니다.</p>
+<h4>진정은 이렇게 진행됩니다</h4>
+<p><mark>[원장 확인: 실제 진행 순서로 수정]</mark></p>
+<ol><li>상처 진찰과 진정 여부 상담</li><li>보호자 동의</li><li>산소포화도 등을 확인하면서 진정과 봉합</li><li>아이가 깰 때까지 원내에서 관찰</li><li>귀가 기준을 확인한 뒤 귀가</li></ol>
+<h4>집에 가서는</h4>
+<ul><li>진정 당일에는 보호자가 곁에서 지켜봐 주세요.</li><li>아직 비틀거릴 수 있어 넘어지지 않게 주의해 주세요.</li><li>먹는 것은 <mark>[원장 확인: 물부터, 몇 시간 뒤부터]</mark></li></ul>
+<h4>부모님이 해 주실 수 있는 것</h4>
+<ul><li>병원에 오는 길에 아이가 이해할 수 있는 말로 짧게 설명해 주세요.</li><li>아이가 좋아하는 인형이나 담요를 챙겨 오세요.</li><li><mark>[원장 확인: 봉합 중 보호자 동반 가능 여부]</mark></li></ul>
+<p><b>미세성형외과의원</b> (1편과 동일한 병원 정보 블록)</p>
+<p>[지도 첨부]</p>
+<p><code>#인계동소아봉합 #수원소아봉합 #아이봉합 #소아수면봉합 #수원봉합 #아이얼굴찢어짐 #수원성형외과</code></p></div></details>
+</section>
+
+<footer>
+  <div class="stitch" aria-hidden="true"></div>
+  <p>파일 원본: GitHub 저장소 iris9131/hospital, 브랜치 claude/optimistic-babbage-ewt6th의 blog 폴더 (<a href="https://github.com/iris9131/hospital/tree/claude/optimistic-babbage-ewt6th/blog" target="_blank" rel="noopener">열기 ↗</a>). '05 원고'와 원고 파일들은 다른 대화나 내 컴퓨터에서 작업한 것으로 보이며, 이 페이지에는 들어 있지 않습니다.</p>
+</footer>
+</div>
