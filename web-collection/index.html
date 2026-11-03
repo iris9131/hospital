@@ -1,0 +1,266 @@
+<meta charset="utf-8">
+<title>원장의 글 서가</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap">
+<style>
+/* Layout: 왼쪽 필터 레일 + 오른쪽 글 목록(한 줄 한 편, 서가 카드). 좁으면 필터가 위로 올라간다. */
+:root {
+  --bg: #f4f6f5;
+  --surface: #ffffff;
+  --fg: #1c2421;
+  --muted: #5d6a65;
+  --line: #d7dfdb;
+  --accent: #2c6a5c;
+  --accent-soft: #e2eeea;
+  --quote: #3b4a45;
+  --warn: #9a4a1c;
+  --warn-soft: #f6e9e1;
+  --font-display: "Gowun Batang", "Nanum Myeongjo", "AppleMyungjo", serif;
+  --font-body: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #121715; --surface: #1a211e; --fg: #e5ece9; --muted: #9aa8a2; --line: #2c3632;
+    --accent: #7cc2b0; --accent-soft: #1f3530; --quote: #c9d5d0; --warn: #e5a27c; --warn-soft: #3a2a20;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #121715; --surface: #1a211e; --fg: #e5ece9; --muted: #9aa8a2; --line: #2c3632;
+  --accent: #7cc2b0; --accent-soft: #1f3530; --quote: #c9d5d0; --warn: #e5a27c; --warn-soft: #3a2a20;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--fg);
+  font: 15px/1.65 var(--font-body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 32px 64px;
+}
+.wrap { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 40px; }
+header.top { max-width: 1120px; margin: 0 auto 28px; display: grid; gap: 6px; }
+h1 { font-family: var(--font-display); font-weight: 700; font-size: 34px; line-height: 1.2; margin: 0; text-wrap: balance; }
+.lede { color: var(--muted); margin: 0; max-width: 62ch; }
+aside.rail { display: grid; gap: 22px; align-content: start; position: sticky; top: calc(16px + env(safe-area-inset-top, 0px)); }
+.group { display: grid; gap: 8px; }
+.label { font-size: 12px; letter-spacing: .08em; color: var(--muted); font-weight: 600; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  font: inherit; font-size: 13px; padding: 4px 10px; border-radius: 999px;
+  border: 1px solid var(--line); background: transparent; color: var(--fg); cursor: pointer;
+  font-variant-numeric: tabular-nums;
+}
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+.chip:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.chip .n { opacity: .7; margin-left: 4px; }
+input[type="search"], select {
+  font: inherit; width: 100%; padding: 8px 10px; border: 1px solid var(--line);
+  background: var(--surface); color: var(--fg); border-radius: 8px;
+}
+.meta-line { font-size: 13px; color: var(--muted); margin: 0; }
+.basis { max-width: 72ch; }
+main { display: grid; gap: 0; min-width: 0; align-content: start; }
+.count { font-size: 13px; color: var(--muted); padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+article {
+  display: grid; grid-template-columns: minmax(0, 1fr) 132px; gap: 8px 28px;
+  padding: 24px 0; border-bottom: 1px solid var(--line);
+}
+.tags { display: flex; gap: 8px; flex-wrap: wrap; font-size: 12px; color: var(--muted); }
+.tag { padding: 1px 8px; border-radius: 4px; background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+.tag.cand { background: transparent; border: 1px dashed var(--line); color: var(--muted); font-weight: 500; }
+h2 { font-family: var(--font-display); font-size: 21px; line-height: 1.4; margin: 4px 0 0; text-wrap: balance; }
+h2 a { color: inherit; text-decoration: none; }
+h2 a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.hosp { font-size: 13px; color: var(--muted); }
+.summary { margin: 6px 0 0; max-width: 66ch; }
+blockquote {
+  margin: 10px 0 0; padding: 0 0 0 14px; border-left: 2px solid var(--accent);
+  font-family: var(--font-display); color: var(--quote); font-size: 16px; line-height: 1.7; max-width: 62ch;
+}
+blockquote p { margin: 0 0 6px; }
+.why { margin: 10px 0 0; font-size: 14px; max-width: 66ch; }
+.why b { color: var(--accent); font-weight: 600; }
+.caution { margin: 8px 0 0; font-size: 13px; color: var(--warn); background: var(--warn-soft); padding: 6px 10px; border-radius: 6px; max-width: 66ch; }
+details { margin-top: 8px; font-size: 14px; }
+summary { cursor: pointer; color: var(--muted); }
+details ol { margin: 6px 0 0; padding-left: 20px; }
+.score { display: grid; gap: 6px; align-content: start; font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.score .total { font-family: var(--font-display); font-size: 28px; color: var(--fg); line-height: 1; }
+.score .total small { font-size: 13px; color: var(--muted); }
+.bar { display: grid; grid-template-columns: 44px 1fr 12px; gap: 6px; align-items: center; }
+.track { height: 5px; background: var(--line); border-radius: 3px; overflow: hidden; }
+.fill { height: 100%; background: var(--accent); }
+.empty { padding: 32px 0; color: var(--muted); max-width: 62ch; }
+.empty code { background: var(--surface); border: 1px solid var(--line); padding: 1px 6px; border-radius: 4px; font-size: 13px; }
+@media (max-width: 860px) {
+  .wrap { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  aside.rail { position: static; }
+  article { grid-template-columns: minmax(0, 1fr); }
+  .score { grid-template-columns: auto 1fr; align-items: end; gap: 4px 16px; }
+  .score .bars { grid-column: 2; }
+  h1 { font-size: 28px; }
+}
+@media (prefers-reduced-motion: no-preference) { .fill { transition: width .3s ease; } }
+</style>
+
+<header class="top">
+  <h1>원장의 글 서가</h1>
+  <p class="lede">병원 홈페이지·인터뷰·SNS에서 원장이 직접 쓴 병원 공지·원장 소개·진료 철학·브랜딩 글 가운데 잘 쓴 글을 모았습니다. 성형외과와 피부과를 먼저 담았습니다. 점수는 진정성·구체성·문장력 각 5점 만점입니다.</p>
+  <p class="meta-line" id="updated"></p>
+  <p class="meta-line basis" id="basis"></p>
+</header>
+<div class="wrap">
+  <aside class="rail" aria-label="필터">
+    <div class="group">
+      <label class="label" for="q">검색</label>
+      <input type="search" id="q" placeholder="병원명, 제목, 문장">
+    </div>
+    <div class="group"><span class="label">과목</span><div class="chips" id="f-dept"></div></div>
+    <div class="group"><span class="label">유형</span><div class="chips" id="f-type"></div></div>
+    <div class="group"><span class="label">출처</span><div class="chips" id="f-source"></div></div>
+    <div class="group"><span class="label">선정</span><div class="chips" id="f-status"></div></div>
+    <div class="group">
+      <label class="label" for="sort">정렬</label>
+      <select id="sort">
+        <option value="score">점수 높은 순</option>
+        <option value="date">최신 글 순</option>
+      </select>
+    </div>
+  </aside>
+  <main>
+    <div class="count" id="count">불러오는 중…</div>
+    <div id="list"></div>
+  </main>
+</div>
+<script>
+(function () {
+  var DEPTS = ['성형외과', '피부과', '치과', '한의원', '정형외과', '비뇨의학과', '내과', '소아청소년과', '안과', '기타'];
+  var SOURCES = ['홈페이지', '기사·인터뷰', 'SNS', '블로그'];
+  var TYPES = ['공지', '원장소개', '철학', '브랜딩', '칼럼'];
+  var STATUS = [['picked', '선정'], ['candidate', '후보']];
+  var state = { dept: null, type: null, source: null, status: null, q: '', sort: 'score' };
+  var posts = [];
+
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function total(p) { var s = p.scores || {}; return (s.authenticity || 0) + (s.specificity || 0) + (s.voice || 0); }
+
+  function chips(id, values, key) {
+    var box = document.getElementById(id);
+    box.innerHTML = '';
+    var all = el('button', 'chip', '전체');
+    all.type = 'button';
+    all.setAttribute('aria-pressed', String(state[key] === null));
+    all.onclick = function () { state[key] = null; render(); };
+    box.appendChild(all);
+    values.forEach(function (v) {
+      var val = Array.isArray(v) ? v[0] : v, name = Array.isArray(v) ? v[1] : v;
+      var n = posts.filter(function (p) { return p[key] === val; }).length;
+      if (!n && key === 'dept' && val !== '성형외과' && val !== '피부과') return;
+      var b = el('button', 'chip', name);
+      b.type = 'button';
+      var c = el('span', 'n', String(n)); b.appendChild(c);
+      b.setAttribute('aria-pressed', String(state[key] === val));
+      b.onclick = function () { state[key] = state[key] === val ? null : val; render(); };
+      box.appendChild(b);
+    });
+  }
+
+  function card(p) {
+    var a = el('article');
+    var left = el('div'); left.style.minWidth = '0';
+    var tags = el('div', 'tags');
+    tags.appendChild(el('span', 'tag', p.dept || '기타'));
+    tags.appendChild(el('span', 'tag', p.type || ''));
+    if (p.status !== 'picked') tags.appendChild(el('span', 'tag cand', '후보'));
+    if (p.source) tags.appendChild(el('span', '', p.source));
+    if (p.date) tags.appendChild(el('span', '', p.date));
+    left.appendChild(tags);
+    var h = el('h2'); var link = el('a', '', p.title || p.url);
+    link.href = p.url; link.target = '_blank'; link.rel = 'noopener';
+    h.appendChild(link); left.appendChild(h);
+    var host = ''; try { host = new URL(p.url).hostname.replace(/^www\./, ''); } catch (e) {}
+    var who = [p.hospital, host].filter(Boolean).join(' · ');
+    if (who) left.appendChild(el('div', 'hosp', who));
+    if (p.summary) left.appendChild(el('p', 'summary', p.summary));
+    if (p.quotes && p.quotes.length) {
+      var bq = el('blockquote');
+      p.quotes.forEach(function (q) { bq.appendChild(el('p', '', '“' + q + '”')); });
+      left.appendChild(bq);
+    }
+    if (p.why_good) { var w = el('p', 'why'); w.appendChild(el('b', '', '따라 쓸 점 ')); w.appendChild(document.createTextNode(p.why_good)); left.appendChild(w); }
+    if (p.caution) left.appendChild(el('p', 'caution', '광고 심의 주의 · ' + p.caution));
+    if (p.structure && p.structure.length) {
+      var d = el('details'); d.appendChild(el('summary', '', '글 구조 보기'));
+      var ol = el('ol'); p.structure.forEach(function (s) { ol.appendChild(el('li', '', s)); });
+      d.appendChild(ol); left.appendChild(d);
+    }
+    a.appendChild(left);
+
+    var sc = el('div', 'score');
+    var t = el('div', 'total', String(total(p))); t.appendChild(el('small', '', ' / 15')); sc.appendChild(t);
+    var bars = el('div', 'bars'); bars.style.display = 'grid'; bars.style.gap = '4px';
+    [['진정성', 'authenticity'], ['구체성', 'specificity'], ['문장력', 'voice']].forEach(function (r) {
+      var v = (p.scores || {})[r[1]] || 0;
+      var row = el('div', 'bar'); row.appendChild(el('span', '', r[0]));
+      var tr = el('div', 'track'); var f = el('div', 'fill'); f.style.width = (v / 5 * 100) + '%'; tr.appendChild(f);
+      row.appendChild(tr); row.appendChild(el('span', '', String(v))); bars.appendChild(row);
+    });
+    sc.appendChild(bars); a.appendChild(sc);
+    return a;
+  }
+
+  function render() {
+    chips('f-dept', DEPTS, 'dept');
+    chips('f-type', TYPES, 'type');
+    chips('f-source', SOURCES, 'source');
+    chips('f-status', STATUS, 'status');
+    var q = state.q.trim().toLowerCase();
+    var rows = posts.filter(function (p) {
+      if (state.dept && p.dept !== state.dept) return false;
+      if (state.type && p.type !== state.type) return false;
+      if (state.source && p.source !== state.source) return false;
+      if (state.status && p.status !== state.status) return false;
+      if (q) {
+        var hay = [p.hospital, p.title, p.summary, p.why_good].concat(p.quotes || []).join(' ').toLowerCase();
+        if (hay.indexOf(q) < 0) return false;
+      }
+      return true;
+    });
+    rows.sort(function (a, b) {
+      if (state.sort === 'date') return String(b.date || '').localeCompare(String(a.date || ''));
+      return total(b) - total(a);
+    });
+    document.getElementById('count').textContent = '글 ' + rows.length + '편 (전체 ' + posts.length + '편)';
+    var list = document.getElementById('list'); list.innerHTML = '';
+    if (!rows.length) list.appendChild(el('p', 'empty', '조건에 맞는 글이 없습니다. 필터를 풀어 보세요.'));
+    rows.forEach(function (p) { list.appendChild(card(p)); });
+  }
+
+  document.getElementById('q').addEventListener('input', function (e) { state.q = e.target.value; render(); });
+  document.getElementById('sort').addEventListener('change', function (e) { state.sort = e.target.value; render(); });
+
+  fetch('posts.json', { cache: 'no-store' })
+    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function (data) {
+      posts = data.posts || [];
+      if (data.updated) document.getElementById('updated').textContent = '마지막 갱신 ' + data.updated;
+      if (data.basis) document.getElementById('basis').textContent = data.basis;
+      render();
+    })
+    .catch(function () {
+      document.getElementById('count').textContent = 'posts.json 을 읽지 못했습니다';
+      var box = el('div', 'empty');
+      box.innerHTML = '데이터 파일(posts.json)을 불러오지 못했습니다. 로컬에서 볼 때는 <code>python3 -m http.server 8000 -d web-collection</code> 를 실행한 뒤 <code>http://localhost:8000</code> 으로 여세요.';
+      document.getElementById('list').appendChild(box);
+    });
+})();
+</script>
